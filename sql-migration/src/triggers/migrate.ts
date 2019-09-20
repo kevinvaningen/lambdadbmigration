@@ -21,7 +21,7 @@ export const migrate: Handler = async (event) => {
     const migration = new MigrationExecutor(mysqlConnection,migrationSequencer);
 
     if(event.version){
-        return await migration.migrateSingle(event.version);
+        return await migration.migrateSingleVersion(event.version);
     }else{
         return await migration.migrate();
     }

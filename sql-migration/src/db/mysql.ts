@@ -5,7 +5,7 @@ export class Mysql{
     constructor(private mysql:any) {
     }
 
-    async query(query:string) {
+    async query(query:string):Promise<any> {
         return await this.mysql.query(query);
     }
 
@@ -13,8 +13,8 @@ export class Mysql{
         return await this.mysql.query(`SELECT current_version from ${this.migrationTableName} where installed_rank = (select max(installed_rank) from ${this.migrationTableName})`);
     }
 
-    async createTable() {
-        await this.mysql.query(`CREATE TABLE ${this.migrationTableName} (
+    async createTable():Promise<any> {
+        return await this.mysql.query(`CREATE TABLE ${this.migrationTableName} (
             installed_rank int NOT NULL AUTO_INCREMENT,
             current_version VARCHAR(255),
             version VARCHAR (255),
@@ -26,7 +26,7 @@ export class Mysql{
         console.debug(JSON.stringify(await this.mysql.query('SELECT version()')));
     }
 
-    async updateVersion(version: string) {
+    async updateVersion(version: string):Promise<any> {
         await this.mysql.query(`INSERT INTO ${this.migrationTableName} `+`(current_version,version`+`) VALUES (?,now())`,[version]);
     }
 }

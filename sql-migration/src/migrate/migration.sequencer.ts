@@ -5,15 +5,12 @@ import {gt, parse} from 'semver';
 
 export class MigrationSequencer {
 
-    constructor() {
-    }
-
-    getMigrationFrom(from: string):Migration[] {
-        if(!from || parse(from)==null){
+    getMigrationFrom(from: string): Migration[] {
+        if (!from || parse(from) === null) {
             console.debug('First migration. Running all packaged migrations.');
             return this.migrations();
-        }else{
-            return this.migrations().filter(m => gt( m.version, from));
+        } else {
+            return this.migrations().filter(m => gt(m.version, from));
         }
     }
 

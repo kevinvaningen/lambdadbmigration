@@ -7,14 +7,18 @@ plugins:
 
 provider:
   name: aws
-  region: eu-west-1
   runtime: nodejs10.x
 
 functions:
   migration:
     handler: src/triggers/migrate.migrate
-    timeout: 60
+    timeout: 200
     memorySize: 512
+    vpc:
+      securityGroupIds:
+      - <security group with access to RDS>
+      subnetIds:
+      - <subnet which has access to the VPC>
     environment:
       USERNAME: ${ssm:QS_RDS_USERNAME}
       ENDPOINT: ${ssm:QS_RDS_ENDPOINT}

@@ -10,7 +10,7 @@ describe('MigrationExecutor', () => {
 
     beforeEach(() => {
         mysqlMock = new JestMock('createTable','testConnection','selectFirstVersion','query');
-        mysqlMock.fn.selectFirstVersion.mockReturnValue(["1.0.0"]);
+        mysqlMock.fn.selectFirstVersion.mockReturnValue(testResolve([{current_version:"1.0.0"}]));
 
         migrationSequencerJestMock = new JestMock<MigrationSequencer>('getMigrationFrom');
         migrationSequencerJestMock.fn.getMigrationFrom.mockReturnValue([
@@ -33,7 +33,7 @@ describe('MigrationExecutor', () => {
 
     describe('migrations', () => {
         test('migrates', async () => {
-            const d = await migrationExecutor.migrate();
+            await migrationExecutor.migrate();
             expect(migrationSequencerJestMock.fn.getMigrationFrom).toHaveBeenCalledWith("1.0.0");
             expect(mysqlMock.fn.query).toHaveBeenCalledTimes(3);
             expect(mysqlMock.fn.query).toHaveBeenCalledWith("sql migration 2.0.0");
@@ -46,7 +46,7 @@ describe('MigrationExecutor', () => {
             mysqlMock.fn.selectFirstVersion.mockRejectedValueOnce({code:'ER_NO_SUCH_TABLE'});
             migrationExecutor = new MigrationExecutor(mysqlMock.typed, migrationSequencerJestMock.typed);
 
-            const d = await migrationExecutor.migrate();
+            await migrationExecutor.migrate();
             expect(mysqlMock.fn.createTable).toHaveBeenCalled();
         });
     });
