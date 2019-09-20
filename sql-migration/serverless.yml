@@ -1,0 +1,23 @@
+service:
+  name: sql-migration
+  region: eu-west-1
+
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  region: eu-west-1
+  runtime: nodejs10.x
+
+functions:
+  migration:
+    handler: src/triggers/migrate.migrate
+    timeout: 60
+    memorySize: 512
+    environment:
+      USERNAME: ${ssm:QS_RDS_USERNAME}
+      ENDPOINT: ${ssm:QS_RDS_ENDPOINT}
+      DATABASE: ${ssm:QS_RDS_DATABASE}
+      PASSWORD: ${ssm:QS_RDS_PASSWORD}
+      PORT: ${ssm:QS_RDS_PORT}

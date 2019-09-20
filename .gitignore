@@ -1,0 +1,16 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+#IntelliJ
+.idea
+
+# Webpack directories
+.webpack
+
+sql-migration/deployment
+
+*.map

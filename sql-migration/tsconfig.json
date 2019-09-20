@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "lib": [
+      "es2017"
+    ],
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "target": "es2017",
+    "module": "commonjs",
+    "outDir": "lib"
+  },
+  "types": [
+    "node",
+    "jest"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "src/jest.util.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ]
+}
