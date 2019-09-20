@@ -11,7 +11,8 @@ Each database version is represented by a semantic version like 1.0.0.sql. These
 - Incremental migrations based on .sql files in the migrations folder, with file named based on semver. 
 - Creates an innital version meta table (called db_version)
 - Executes migrations in sequence from none (or current version from a previous migration).
-- Is able to execute a single file again by providing a single version string. 
+- Is able to execute a single file again by providing a single version string.
+- It pushes queries with semi-colon (;) separation in one query. 
 
 ## Extendability to other RDS databases 
 Other db's are easily supported. Just import the proper driver in the npm dependencies and modify the mysql.ts with your new database queries and  update the triggers/migrate.ts with new connection params.   
@@ -31,8 +32,8 @@ Then in console (of cli) invoke the Lambda and installation of the db_version is
 Alternatively you can provide a version argument like this:
 ```
 {
-version: '1.0.0'
+    version: '1.0.0'
 }
 ```
 
-This is executed as a single SQL migration. 
+This is executed as a single SQL migration without making a checkpoint. 

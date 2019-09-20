@@ -1,1 +1,3 @@
 SELECT version();
+
+SELECT version();
