@@ -24,7 +24,7 @@
     "@types/node": "^10.12.18",
     "@types/semver": "^6.0.2",
     "aws-lambda": "^0.1.2",
-    "aws-sdk": "^2.474.0",
+    "aws-sdk": "^2.814.0",
     "jest": "^24.7.1",
     "serverless-webpack": "^5.2.0",
     "ts-jest": "^24.0.2",
